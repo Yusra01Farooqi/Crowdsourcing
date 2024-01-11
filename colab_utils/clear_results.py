@@ -37,12 +37,13 @@ def empty_directories(directory_path, target_directories):
                     print(f'\nFailed to empty {target_directory_path}: {e}')
 
 def main():
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    results_directory = os.path.join(script_directory, '..', 'results')
+
     parser = argparse.ArgumentParser(description='Empty specified directories and create .gitkeep files.')
     parser.add_argument('--target_directories', nargs='+', default=['csv', 'files'], help='List of target directories to empty')
 
     args = parser.parse_args()
-    
-    results_directory = '/content/cs_sem_template/results/'
     target_directories = args.target_directories
 
     really_delete = input('Type "yes" to really delete all RESULT data: ')

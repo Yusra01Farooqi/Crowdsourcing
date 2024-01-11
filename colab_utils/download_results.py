@@ -1,8 +1,9 @@
 import os
 import pandas as pd
-from google.colab import files  # For triggering downloads in Colab
 from datetime import datetime
 import shutil
+import argparse
+from google.colab import files  # For triggering downloads in Colab
 
 # Function to merge CSV files in a directory and save to a new CSV file
 def merge_and_save_csv(export_dir, csv_folder):
@@ -27,54 +28,64 @@ def merge_and_save_csv(export_dir, csv_folder):
         print(f'\nNo CSVs found in {csv_folder}!')
         return None
 
-def save_image_dir(export_dir, image_folder):
-    # Find all image files in the 'image_folder'
-    image_files = [f for f in os.listdir(image_folder) if f.lower().endswith(('.jpg', '.png', '.jpeg'))]
+def save_files(export_dir, file_folder):
+    # Find all files in the folder
+    files = [f for f in os.listdir(file_folder)]
 
-    parent_dir_name = os.path.basename(os.path.dirname(image_folder))
-    export_dir_path = os.path.join(export_dir, f'{parent_dir_name}_images')
+    parent_dir_name = os.path.basename(os.path.dirname(file_folder))
+    export_dir_path = os.path.join(export_dir, parent_dir_name)
 
-    if image_files:
+    if files:
         try:
-            # Create the export directory for images
+            # Create the export directory for files
             os.makedirs(export_dir_path, exist_ok=True)
 
-            # Copy images to the export directory
-            for image_file in image_files:
-                source_path = os.path.join(image_folder, image_file)
-                destination_path = os.path.join(export_dir_path, image_file)
+            # Copy files to the export directory
+            for file in files:
+                source_path = os.path.join(file_folder, file)
+                destination_path = os.path.join(export_dir_path, file)
                 shutil.copy(source_path, destination_path)
 
             return export_dir_path
         except Exception as e:
-            print(f'\nFailed to copy images from {image_folder}: {e}')
+            print(f'\nFailed to copy files from {file_folder}: {e}')
             return None
     else:
-        print(f'\nNo images found in {image_folder}!')
+        print(f'\nNo files found in {file_folder}!')
         return None
 
-# Function to process subdirectories and trigger downloads
-root_directory = 'results'
-subdirectories = [os.path.join(root_directory, folder) for folder in os.listdir(root_directory) if os.path.isdir(os.path.join(root_directory, folder))]
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Empty specified directories and create .gitkeep files.')
+    parser.add_argument('--target_directories', nargs='+', default=['files'], help='List of target directories to empty')
 
-if subdirectories:
-    # Create timestamped_export directory
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    export_dir = f'export/results_{timestamp}'
-    os.makedirs(export_dir, exist_ok=True)
+    args = parser.parse_args()
 
-    for directory in subdirectories:
-        csv_folders = [os.path.join(directory, folder) for folder in os.listdir(directory) if folder.endswith('csv')]
-        for csv_folder in csv_folders:
-            merge_and_save_csv(export_dir, csv_folder)
+    # Function to process subdirectories and trigger downloads
+    root_directory = 'results'
+    subdirectories = [os.path.join(root_directory, folder) for folder in os.listdir(root_directory) if os.path.isdir(os.path.join(root_directory, folder))]
 
-        image_folders = [os.path.join(directory, folder) for folder in os.listdir(directory) if folder.endswith('images')]
-        for image_folder in image_folders:
-            save_image_dir(export_dir, image_folder)
+    if subdirectories:
+        # Create timestamped_export directory
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        export_dir = f'export/results_{timestamp}'
+        os.makedirs(export_dir, exist_ok=True)
 
-    # Create a zip file of the export directory
-    archive_file=f'export/zip/results_{timestamp}'
-    shutil.make_archive(archive_file, 'zip', export_dir)
+        for directory in subdirectories:
+            csv_folders = [os.path.join(directory, folder) for folder in os.listdir(directory) if folder.endswith('csv')]
+            for csv_folder in csv_folders:
+                merge_and_save_csv(export_dir, csv_folder)
 
-    # Trigger download for the browser
-    files.download(f"{archive_file}.zip")
+            for dir_id in args.target_directories:
+                match_folders = [os.path.join(directory, folder) for folder in os.listdir(directory) if folder.endswith(str(dir_id))]
+                for folder in match_folders:
+                  save_files(export_dir, folder)
+
+        # Create a zip file of the export directory
+        archive_file = f'export/zip/results_{timestamp}'
+        shutil.make_archive(archive_file, 'zip', export_dir)
+
+        # Trigger download for the browser
+        print(f'Created archive: {archive_file}.zip')
+
+        # Trigger download for the browser
+        files.download(f"{archive_file}.zip")
