@@ -30,11 +30,14 @@ df = pd.DataFrame(data)
 df.to_csv(f'results/registered/csv/{timestamp_file}_{worker_id}_registered.csv', index=False)
 st.success('Registered User!')
 
-st.title('Introduction')
-st.write('Welcome to this template demo app, presenting you a basic example of how to use Streamlit to create a Microtasking app.')
-st.write('This demo consists of two tasks: \n1) labeling images of buildings on campus\n2) uploading campus images to label')
-st.write('Please use this as a template to realize your own app consisting of a custom Streamlit GUI.')
-st.write('Apply your knowledge gained from the lecture/seminar contents and the session/payment/file mangement utilities demonstrated in this app.')
+st.title('LingualInspect')
+st.write('Welcome to LinguaInspect: Community-Driven Educational Video QA')
+st.write('TASK INSTRUCTIONS: \n Your mission is to ensure the accuracy of transcriptions and translations. The transcriptions and translations have already been provided and are embedded with the video. Your task is to compare them with the actual spoken content in the video and provide assessments')
+st.write('1. Watch the video carefully.')
+st.write('2. Review the embedded transcriptions and translations.')
+st.write('3. Assess how accurately they match the spoken content in the video.')
+st.write('4. Answer the questions provided on the next page based on your observations.')
+st.write('5. Click the checkbox below to confirm that you have read and understood the instructions.')
 
 st.session_state['instances_completed']=0
 st.session_state['timestamp_registered']=timestamp
