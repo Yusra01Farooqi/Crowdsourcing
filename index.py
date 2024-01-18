@@ -39,15 +39,13 @@ st.write('3. Assess how accurately they match the spoken content in the video.')
 st.write('4. Answer the questions provided on the next page based on your observations.')
 st.write('5. Click the checkbox below to confirm that you have read and understood the instructions.')
 
-# Replace 'your_youtube_video_link' with the actual YouTube video link
-youtube_video_link = "https://www.youtube.com/watch?v=ugqcTBNNijc"
-
-# Display the YouTube video
-st.video(youtube_video_link)
 
 st.session_state['instances_completed']=0
 st.session_state['timestamp_registered']=timestamp
 
-if st.button('Start'):
-  switch_page("label_image") #redirect to first task page
+agree = st.checkbox('I have read and understood the instructions')
+
+if agree:
+  if st.button('Start'):
+    switch_page("label_image") #redirect to first task page
 
