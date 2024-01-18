@@ -1,3 +1,4 @@
+from numpy import string_
 import streamlit as st
 from streamlit_extras.switch_page_button import switch_page
 import os
@@ -43,7 +44,7 @@ timestamp_file = timestamp.strftime("%Y%m%d_%H%M%S")
 # Streamlit app
 st.title('1/2 Transcription Quality Assessment')
 file_path = "references/files/youtube.txt"
-youtube_video_link = "https://www.youtube.com/watch?v=J0NuOlA2xDc"
+youtube_video_link = str(get_random_youtube_link(file_path))
 st.video(youtube_video_link)
 # Check if 'instances_completed' is in session state, redirect to entry page if not
 if 'instances_completed' not in st.session_state:
@@ -68,10 +69,10 @@ with st.form(key='image_form'):
   else:
       st.warning('No images found in the specified directory.')
 
-  # selection = st.selectbox('This building is named after:', ['', 'Helmholtz', 'Kirchhoff', 'Humboldt', 'Meitner', 'Hopper'])
+selection = st.selectbox('This building is named after:', ['', 'Helmholtz', 'Kirchhoff', 'Humboldt', 'Meitner', 'Hopper'])
 
 # Submit button
-  if st.form_submit_button('Submit'):
+if st.form_submit_button('Submit'):
       # Check if mandatory fields are filled
       if selection:
           image_name=os.path.basename(selected_image)
