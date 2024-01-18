@@ -44,7 +44,7 @@ timestamp_file = timestamp.strftime("%Y%m%d_%H%M%S")
 # Streamlit app
 st.title('1/2 Transcription Quality Assessment')
 file_path = "references/files/youtube.txt"
-youtube_video_link = str(get_random_youtube_link(file_path))
+youtube_video_link = str(file_path)
 st.video(youtube_video_link)
 # Check if 'instances_completed' is in session state, redirect to entry page if not
 if 'instances_completed' not in st.session_state:
