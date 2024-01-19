@@ -103,6 +103,7 @@ with st.form(key='image_form'):
                 'Question 2':[slider_val_2],
                 'Question 3':[slider_val_3],
                 'Question 4':[slider_val_4],
+                'Question 5':[feedback],
 
                 # 'Image Name': [image_name],
                 # 'Label': [selection],
