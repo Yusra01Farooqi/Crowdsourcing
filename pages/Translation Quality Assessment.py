@@ -6,6 +6,7 @@ import pandas as pd
 import imghdr
 from datetime import datetime
 from page_setup import setup_page
+from numpy import string_
 
 #hide sidebar
 setup_page()

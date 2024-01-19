@@ -59,7 +59,7 @@ if 'instances_completed' not in st.session_state:
 instances_completed = st.session_state.instances_completed
 
 # Load the initial image
-selected_image = get_random_image("references/files")
+#selected_image = get_random_image("references/files")
 # youtube_video_url = "https://www.youtube.com/watch?v=J0NuOlA2xDc"
 # st.video(youtube_video_url)
 
