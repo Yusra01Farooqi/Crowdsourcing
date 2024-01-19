@@ -47,5 +47,5 @@ agree = st.checkbox('I have read and understood the instructions')
 
 if agree:
   if st.button('Start'):
-    switch_page("label_image") #redirect to first task page
+    switch_page("Transcription Quality Assessment") #redirect to first task page
 

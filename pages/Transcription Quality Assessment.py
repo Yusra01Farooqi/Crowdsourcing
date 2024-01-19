@@ -26,7 +26,9 @@ def get_random_youtube_link(file_path):
 
         # Choose a random link from the list
         random_link = random.choice(links).strip()
-
+        with open('/content/project_group_12/references/files/youtube_video_link.csv', 'w') as file:
+          file.write(random_link)
+        
         return random_link
 
     except FileNotFoundError:
@@ -49,8 +51,11 @@ file_path = "references/files/youtube.txt"
 try:
     youtube_video_link = get_random_youtube_link(file_path)
     st.video(youtube_video_link)
+    
 except st.ScriptRunner.StopException as e:
     st.warning(str(e))
+
+
 # Check if 'instances_completed' is in session state, redirect to entry page if not
 if 'instances_completed' not in st.session_state:
     switch_page("index")
@@ -59,7 +64,7 @@ if 'instances_completed' not in st.session_state:
 instances_completed = st.session_state.instances_completed
 
 # Load the initial image
-#selected_image = get_random_image("references/files")
+selected_image = get_random_image("references/files")
 # youtube_video_url = "https://www.youtube.com/watch?v=J0NuOlA2xDc"
 # st.video(youtube_video_url)
 
@@ -111,7 +116,7 @@ with st.form(key='image_form'):
             st.success('CSV file created successfully.')
 
             st.session_state.instances_completed += 1
-            # switch_page("upload_image")
+            switch_page("Translation Quality Assessment")
 
         else:
             st.warning('Please select your answer first')
