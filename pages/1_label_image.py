@@ -72,11 +72,11 @@ with st.form(key='image_form'):
       st.warning('No images found in the specified directory.')
 
 # selection = st.selectbox('This building is named after:', ['', 'Helmholtz', 'Kirchhoff', 'Humboldt', 'Meitner', 'Hopper'])
-  selection = st.form_submit_button("Submit")
+  submit_button = st.form_submit_button("Submit")
 
-# selection = slider_val_1 is not None and slider_val_2 is not None and slider_val_3 is not None and slider_val_4 is not None and slider_val_5 is not None and slider_val_6 is not None and slider_val_7 is not None
+  selection = slider_val_1 is not None and slider_val_2 is not None and slider_val_3 is not None and slider_val_4 is not None and slider_val_5 is not None and slider_val_6 is not None and slider_val_7 is not None
 # Submit button
-  if selection:
+  if submit_button:
         # Check if mandatory fields are filled
         if selection:
             image_name=os.path.basename(selected_image)
