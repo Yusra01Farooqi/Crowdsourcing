@@ -116,7 +116,7 @@ with st.form(key='image_form'):
             st.success("Feedback submitted successfully!")
 
             st.session_state.instances_completed += 1
-            # switch_page("upload_image")
+            switch_page("payment")
 
         else:
             st.warning('Please select your answer first')

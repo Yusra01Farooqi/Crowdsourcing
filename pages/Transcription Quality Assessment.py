@@ -18,23 +18,23 @@ def get_random_image(directory):
     else:
         return None
 
-def get_random_youtube_link(file_path):
-    try:
-        # Read the file and store links in a list
-        with open(file_path, 'r') as file:
-            links = file.readlines()
+# def get_random_youtube_link(file_path):
+#     try:
+#         # Read the file and store links in a list
+#         with open(file_path, 'r') as file:
+#             links = file.readlines()
 
-        # Choose a random link from the list
-        random_link = random.choice(links).strip()
-        with open('/content/project_group_12/references/files/youtube_video_link.csv', 'w') as file:
-          file.write(random_link)
+#         # Choose a random link from the list
+#         random_link = random.choice(links).strip()
+#         with open('/content/project_group_12/references/files/youtube_video_link.csv', 'wb') as file:
+#           file.write(random_link)
         
-        return random_link
+#         return random_link
 
-    except FileNotFoundError:
-        print(f"Error: File '{file_path}' not found.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
+#     except FileNotFoundError:
+#         print(f"Error: File '{file_path}' not found.")
+#     except Exception as e:
+#         print(f"An error occurred: {e}")
 
 # Get query parameters
 url_params = st.experimental_get_query_params()
@@ -45,12 +45,12 @@ timestamp_file = timestamp.strftime("%Y%m%d_%H%M%S")
 
 # Streamlit app
 st.title('1/2 Transcription Quality Assessment')
-file_path = "references/files/youtube.txt"
+file_path = "/content/project_group_12/references/files/Video01CaptionsOK.mp4"
 # youtube_video_link = str(file_path)
-# st.video(youtube_video_link)
+# st.video(Video01CaptionsOK.mp4)
 try:
-    youtube_video_link = get_random_youtube_link(file_path)
-    st.video(youtube_video_link)
+    # youtube_video_link = get_random_youtube_link(file_path)
+    st.video(file_path)
     
 except st.ScriptRunner.StopException as e:
     st.warning(str(e))
