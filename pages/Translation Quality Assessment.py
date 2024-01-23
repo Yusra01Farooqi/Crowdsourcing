@@ -44,21 +44,16 @@ timestamp_file = timestamp.strftime("%Y%m%d_%H%M%S")
 
 # Streamlit app
 st.title('2/2 Translation Quality Assessment (if applicable)')
-file_path = "references/files/youtube.txt"
-# youtube_video_link = str(file_path)
-# st.video(youtube_video_link)
-
-
-
+youtube_video_url = "https://www.youtube.com/watch?v=37YU1ShrMpU&list=PLwrM2Wcy_MsCnq4XZitG3tjhvotoVbedy&index=10"
+#st.video(youtube_video_url)
 try:
-    # with open('/content/project_group_12/references/files/youtube_video_link.txt', 'r') as file:
-
-    #   my_variable = file.read()
-    youtube_video_link = get_random_youtube_link(file_path)
-    # youtube_video_link = my_variable
-    st.video(youtube_video_link)
+    # youtube_video_link = get_random_youtube_link(file_path)
+    st.video(youtube_video_url)
+    
 except st.ScriptRunner.StopException as e:
     st.warning(str(e))
+
+
 # Check if 'instances_completed' is in session state, redirect to entry page if not
 if 'instances_completed' not in st.session_state:
     switch_page("index")
@@ -68,8 +63,6 @@ instances_completed = st.session_state.instances_completed
 
 # Load the initial image
 selected_image = get_random_image("references/files")
-# youtube_video_url = "https://www.youtube.com/watch?v=J0NuOlA2xDc"
-# st.video(youtube_video_url)
 
 with st.form(key='image_form'):
   if selected_image:

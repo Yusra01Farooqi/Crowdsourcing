@@ -45,12 +45,14 @@ timestamp_file = timestamp.strftime("%Y%m%d_%H%M%S")
 
 # Streamlit app
 st.title('1/2 Transcription Quality Assessment')
-file_path = "/content/project_group_12/references/files/Video01CaptionsOK.mp4"
+#file_path = "/content/project_group_12/references/files/Video01CaptionsOK.mp4"
 # youtube_video_link = str(file_path)
 # st.video(Video01CaptionsOK.mp4)
+youtube_video_url = "https://www.youtube.com/watch?v=37YU1ShrMpU&list=PLwrM2Wcy_MsCnq4XZitG3tjhvotoVbedy&index=10"
+#st.video(youtube_video_url)
 try:
     # youtube_video_link = get_random_youtube_link(file_path)
-    st.video(file_path)
+    st.video(youtube_video_url)
     
 except st.ScriptRunner.StopException as e:
     st.warning(str(e))
