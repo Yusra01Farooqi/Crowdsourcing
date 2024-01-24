@@ -75,6 +75,7 @@ if cc_checked:
     if selected_image:
         #st.image(selected_image, caption='Current Image', use_column_width=True)
         st.write("Transcription Quality Assessment")
+        st.write ("Scale: 1 (Strongly Agree) - 5 (Strongly Disagree)")
         slider_val_1 = int(st.select_slider(" 1.The transcription is well-synced with the actual spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider1'))
         slider_val_2 = int(st.select_slider(" 2.The provided transcription accurately reflects the spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider2'))
         slider_val_3 = int(st.select_slider(" 3.The language in the transcription is not consistent with the spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider3'))

@@ -95,6 +95,7 @@ with st.form(key='image_form'):
   if selected_image:
       #st.image(selected_image, caption='Current Image', use_column_width=True)
       st.write("Translation Quality Assessment")
+      st.write ("Scale: 1 (Strongly Agree) - 5 (Strongly Disagree)")
       slider_val_1 = int(st.select_slider(" 1.The provided translation inaccurately conveys the meaning of the spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider1'))
       slider_val_2 = int(st.select_slider(" 2.The translated words are easy to understand in the new language.",options=['0','1', '2', '3', '4', '5',],key='slider2'))
       slider_val_3 = int(st.select_slider(" 3.The translation appropriately considers cultural nuances and sensitivities evident in the spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider3'))
