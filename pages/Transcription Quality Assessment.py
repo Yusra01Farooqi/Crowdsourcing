@@ -69,56 +69,57 @@ instances_completed = st.session_state.instances_completed
 selected_image = get_random_image("references/files")
 # youtube_video_url = "https://www.youtube.com/watch?v=J0NuOlA2xDc"
 # st.video(youtube_video_url)
+cc_checked = st.checkbox("I have turned on the captions (cc) in the video")
+if cc_checked:
+  with st.form(key='image_form'):
+    if selected_image:
+        #st.image(selected_image, caption='Current Image', use_column_width=True)
+        st.write("Transcription Quality Assessment")
+        slider_val_1 = int(st.select_slider(" 1.The transcription is well-synced with the actual spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider1'))
+        slider_val_2 = int(st.select_slider(" 2.The provided transcription accurately reflects the spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider2'))
+        slider_val_3 = int(st.select_slider(" 3.The language in the transcription is not consistent with the spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider3'))
+        slider_val_4 = int(st.select_slider(" 4.The transcription is riddled with spelling and grammar errors in comparison to the spoken content",options=['0','1', '2', '3', '4', '5',],key='slider4'))
+        slider_val_5 = int(st.select_slider(" 5.The terminology and language in the transcription are consistent with the spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider5'))
+        slider_val_6 = int(st.select_slider(" 6.The transcription fails to capture linguistic nuances and expressions in spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider6'))
+        slider_val_7 = int(st.select_slider(" 7.The transcription is poorly synced with the actual spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider7'))
+        st.session_state['current_image'] = selected_image
+    else:
+        st.warning('No images found in the specified directory.')
 
-with st.form(key='image_form'):
-  if selected_image:
-      #st.image(selected_image, caption='Current Image', use_column_width=True)
-      st.write("Transcription Quality Assessment")
-      slider_val_1 = int(st.select_slider(" 1.The transcription is well-synced with the actual spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider1'))
-      slider_val_2 = int(st.select_slider(" 2.The provided transcription accurately reflects the spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider2'))
-      slider_val_3 = int(st.select_slider(" 3.The language in the transcription is not consistent with the spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider3'))
-      slider_val_4 = int(st.select_slider(" 4.The transcription is riddled with spelling and grammar errors in comparison to the spoken content",options=['0','1', '2', '3', '4', '5',],key='slider4'))
-      slider_val_5 = int(st.select_slider(" 5.The terminology and language in the transcription are consistent with the spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider5'))
-      slider_val_6 = int(st.select_slider(" 6.The transcription fails to capture linguistic nuances and expressions in spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider6'))
-      slider_val_7 = int(st.select_slider(" 7.The transcription is poorly synced with the actual spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider7'))
-      st.session_state['current_image'] = selected_image
-  else:
-      st.warning('No images found in the specified directory.')
+  # selection = st.selectbox('This building is named after:', ['', 'Helmholtz', 'Kirchhoff', 'Humboldt', 'Meitner', 'Hopper'])
+    submit_button = st.form_submit_button("Submit")
 
-# selection = st.selectbox('This building is named after:', ['', 'Helmholtz', 'Kirchhoff', 'Humboldt', 'Meitner', 'Hopper'])
-  submit_button = st.form_submit_button("Submit")
+    selection = slider_val_1 >0  and slider_val_2 >0 and slider_val_3 >0 and slider_val_4 >0 and slider_val_5 >0 and slider_val_6 >0 and slider_val_7 >0
+  # Submit button
+    if submit_button:
+          # Check if mandatory fields are filled
+          if selection:
+              # image_name=os.path.basename(selected_image)
+              # Create a DataFrame with the collected data
+              data = {
+                  'Timestamp': [timestamp],
+                  'Worker': [worker_id],
+                  'Campaign' : [camp_id],
+                  'Question 1':[slider_val_1],
+                  'Question 2':[slider_val_2],
+                  'Question 3':[slider_val_3],
+                  'Question 4':[slider_val_4],
+                  'Question 5':[slider_val_5],
+                  'Question 6':[slider_val_6],
+                  'Question 7':[slider_val_7],
 
-  selection = slider_val_1 >0  and slider_val_2 >0 and slider_val_3 >0 and slider_val_4 >0 and slider_val_5 >0 and slider_val_6 >0 and slider_val_7 >0
-# Submit button
-  if submit_button:
-        # Check if mandatory fields are filled
-        if selection:
-            # image_name=os.path.basename(selected_image)
-            # Create a DataFrame with the collected data
-            data = {
-                'Timestamp': [timestamp],
-                'Worker': [worker_id],
-                'Campaign' : [camp_id],
-                'Question 1':[slider_val_1],
-                'Question 2':[slider_val_2],
-                'Question 3':[slider_val_3],
-                'Question 4':[slider_val_4],
-                'Question 5':[slider_val_5],
-                'Question 6':[slider_val_6],
-                'Question 7':[slider_val_7],
+                  # 'Image Name': [image_name],
+                  # 'Label': [selection],
+              }
+    
+              df = pd.DataFrame(data)
 
-                # 'Image Name': [image_name],
-                # 'Label': [selection],
-            }
-  
-            df = pd.DataFrame(data)
+              # Save the DataFrame to a CSV file
+              df.to_csv(f'results/task_1/csv/{timestamp_file}_{worker_id}_image_labeling.csv', index=False)
+              st.success('CSV file created successfully.')
 
-            # Save the DataFrame to a CSV file
-            df.to_csv(f'results/task_1/csv/{timestamp_file}_{worker_id}_image_labeling.csv', index=False)
-            st.success('CSV file created successfully.')
+              st.session_state.instances_completed += 1
+              switch_page("Translation Quality Assessment")
 
-            st.session_state.instances_completed += 1
-            switch_page("Translation Quality Assessment")
-
-        else:
-            st.warning('Please select your answer first')
+          else:
+              st.warning('Please select your answer first')
