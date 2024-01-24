@@ -78,7 +78,7 @@ if cc_checked:
         slider_val_1 = int(st.select_slider(" 1.The transcription is well-synced with the actual spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider1'))
         slider_val_2 = int(st.select_slider(" 2.The provided transcription accurately reflects the spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider2'))
         slider_val_3 = int(st.select_slider(" 3.The language in the transcription is not consistent with the spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider3'))
-        slider_val_4 = int(st.select_slider(" 4.The transcription is riddled with spelling and grammar errors in comparison to the spoken content",options=['0','1', '2', '3', '4', '5',],key='slider4'))
+        slider_val_4 = int(st.select_slider(" 4.The transcription is riddled with spelling and grammar errors in comparison to the spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider4'))
         slider_val_5 = int(st.select_slider(" 5.The terminology and language in the transcription are consistent with the spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider5'))
         slider_val_6 = int(st.select_slider(" 6.The transcription fails to capture linguistic nuances and expressions in spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider6'))
         slider_val_7 = int(st.select_slider(" 7.The transcription is poorly synced with the actual spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider7'))
@@ -100,13 +100,13 @@ if cc_checked:
                   'Timestamp': [timestamp],
                   'Worker': [worker_id],
                   'Campaign' : [camp_id],
-                  'Question 1':[slider_val_1],
-                  'Question 2':[slider_val_2],
-                  'Question 3':[slider_val_3],
-                  'Question 4':[slider_val_4],
-                  'Question 5':[slider_val_5],
-                  'Question 6':[slider_val_6],
-                  'Question 7':[slider_val_7],
+                  'The transcription is well-synced with the actual spoken content in the video.':[slider_val_1],
+                  'The provided transcription accurately reflects the spoken content in the video':[slider_val_2],
+                  'The language in the transcription is not consistent with the spoken content.':[slider_val_3],
+                  'The transcription is riddled with spelling and grammar errors in comparison to the spoken content.':[slider_val_4],
+                  'The terminology and language in the transcription are consistent with the spoken content.':[slider_val_5],
+                  'The transcription fails to capture linguistic nuances and expressions in spoken content.':[slider_val_6],
+                  'The transcription is poorly synced with the actual spoken content in the video.':[slider_val_7],
 
                   # 'Image Name': [image_name],
                   # 'Label': [selection],
