@@ -88,13 +88,18 @@ with st.form(key='image_form'):
       slider_val_4 = int(st.select_slider(" 4. The provided translation accurately conveys the meaning of the spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider4'))
       st.write("Provide specific suggestions for improving the transcriptions and translations.")
       feedback = st.text_area("Your Feedback", "")
+      # Generate a simple math problem as a fun validity check
+      num1 = random.randint(1, 10)
+      num2 = random.randint(1, 10)
+      correct_answer = num1 + num2
+      user_answer = st.number_input(f'What is the sum of {num1} and {num2}?')
       st.session_state['current_video'] = youtube_video_url
   else:
       st.warning('No video found')
 
   submit_button = st.form_submit_button("Submit")
 
-  selection = slider_val_1 >0  and slider_val_2 >0 and slider_val_3 >0 and slider_val_4 >0 
+  selection = slider_val_1 >0
 # Submit button
   if submit_button:
         # Check if mandatory fields are filled

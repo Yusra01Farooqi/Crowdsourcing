@@ -54,34 +54,33 @@ if cc_checked:
 
     submit_button = st.form_submit_button("Submit")
 
-    selection = slider_val_1 >0  and slider_val_2 >0 and slider_val_3 >0 and slider_val_4 >0 and slider_val_5 >0 and slider_val_6 >0 and slider_val_7 >0
+    selection = slider_val_1 >0
   # Submit button
     if submit_button:
           # Check if mandatory fields are filled
           if selection:
-              # image_name=os.path.basename(selected_image)
-              # Create a DataFrame with the collected data
-              data = {
-                  'Timestamp': [timestamp],
-                  'Worker': [worker_id],
-                  'Campaign' : [camp_id],
-                  'The transcription is well-synced with the actual spoken content in the video.':[slider_val_1],
-                  'The provided transcription accurately reflects the spoken content in the video':[slider_val_2],
-                  'The language in the transcription is not consistent with the spoken content.':[slider_val_3],
-                  'The transcription is riddled with spelling and grammar errors in comparison to the spoken content.':[slider_val_4],
-                  'The terminology and language in the transcription are consistent with the spoken content.':[slider_val_5],
-                  'The transcription fails to capture linguistic nuances and expressions in spoken content.':[slider_val_6],
-                  'The transcription is poorly synced with the actual spoken content in the video.':[slider_val_7],
-              }
+            data = {
+                'Timestamp': [timestamp],
+                'Worker': [worker_id],
+                'Campaign' : [camp_id],
+                'The transcription is well-synced with the actual spoken content in the video.':[slider_val_1],
+                'The provided transcription accurately reflects the spoken content in the video':[slider_val_2],
+                'The language in the transcription is not consistent with the spoken content.':[slider_val_3],
+                'The transcription is riddled with spelling and grammar errors in comparison to the spoken content.':[slider_val_4],
+                'The terminology and language in the transcription are consistent with the spoken content.':[slider_val_5],
+                'The transcription fails to capture linguistic nuances and expressions in spoken content.':[slider_val_6],
+                'The transcription is poorly synced with the actual spoken content in the video.':[slider_val_7],
+            }
     
-              df = pd.DataFrame(data)
+            df = pd.DataFrame(data)
 
-              # Save the DataFrame to a CSV file
-              df.to_csv(f'results/task_1/csv/{timestamp_file}_{worker_id}_Transcription Quality Assessment.csv', index=False)
-              st.success('CSV file created successfully.')
+            # Save the DataFrame to a CSV file
+            df.to_csv(f'results/task_1/csv/{timestamp_file}_{worker_id}_Transcription Quality Assessment.csv', index=False)
+            st.success('CSV file created successfully.')
 
-              st.session_state.instances_completed += 1
-              switch_page("Translation Quality Assessment")
-
+            st.session_state.instances_completed += 1
+            switch_page("Translation Quality Assessment")
           else:
-              st.warning('Please select your answer first')
+            st.warning('Make sure all the questions are answered')
+else:
+  st.warning('Please check the button first')
