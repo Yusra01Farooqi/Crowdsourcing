@@ -110,6 +110,8 @@ with st.form(key='image_form'):
                 'Worker': [worker_id],
                 'Campaign' : [camp_id],
                 'Language' : [option],
+                'Correct' : [correct_answer],
+                'User' : [user_answer],
                 'The provided translation inaccurately conveys the meaning of the spoken content in the video.':[slider_val_1],
                 'The translated words are easy to understand in the new language.':[slider_val_2],
                 'The translation appropriately considers cultural nuances and sensitivities evident in the spoken content.':[slider_val_3],
