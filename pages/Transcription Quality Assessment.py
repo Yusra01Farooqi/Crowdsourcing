@@ -83,4 +83,4 @@ if cc_checked:
           else:
             st.warning('Make sure all the questions are answered')
 else:
-  st.warning('Please check the button first')
+  st.warning('Please click the check box first')
