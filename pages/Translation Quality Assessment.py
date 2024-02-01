@@ -79,47 +79,52 @@ elif option == 'Hindi':
 
 # Load the initial image
 with st.form(key='image_form'):
-  if youtube_video_url:
-      st.write("Translation Quality Assessment")
-      st.write ("Scale: 1 (Strongly Agree) - 5 (Strongly Disagree)")
-      slider_val_1 = int(st.select_slider(" 1.The provided translation inaccurately conveys the meaning of the spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider1'))
-      slider_val_2 = int(st.select_slider(" 2.The translated words are easy to understand in the new language.",options=['0','1', '2', '3', '4', '5',],key='slider2'))
-      slider_val_3 = int(st.select_slider(" 3.The translation appropriately considers cultural nuances and sensitivities evident in the spoken content.",options=['0','1', '2', '3', '4', '5',],key='slider3'))
-      slider_val_4 = int(st.select_slider(" 4. The provided translation accurately conveys the meaning of the spoken content in the video.",options=['0','1', '2', '3', '4', '5',],key='slider4'))
-      st.write("Provide specific suggestions for improving the transcriptions and translations.")
-      feedback = st.text_area("Your Feedback", "")
-      # Generate a simple math problem as a fun validity check
-      num1 = random.randint(1, 10)
-      num2 = random.randint(1, 10)
-      correct_answer = num1 + num2
-      user_answer = st.number_input(f'What is the sum of {num1} and {num2}?')
-      st.session_state['current_video'] = youtube_video_url
-  else:
-      st.warning('No video found')
+    if youtube_video_url:
+        st.write("Translation Quality Assessment")
+        st.write("Scale: 1 (Strongly Agree) - 5 (Strongly Disagree)")
 
-  submit_button = st.form_submit_button("Submit")
+        # Check if num1 and num2 are already generated in the session state
+        if 'num1' not in st.session_state:
+            st.session_state.num1 = random.randint(1, 10)
+            st.session_state.num2 = random.randint(1, 10)
 
-  selection = slider_val_1 >0
-# Submit button
-  if submit_button:
+        slider_val_1 = int(st.select_slider("1. The provided translation inaccurately conveys the meaning of the spoken content in the video.", options=['0', '1', '2', '3', '4', '5'], key='slider1'))
+        slider_val_2 = int(st.select_slider("2. The translated words are easy to understand in the new language.", options=['0', '1', '2', '3', '4', '5'], key='slider2'))
+        slider_val_3 = int(st.select_slider("3. The translation appropriately considers cultural nuances and sensitivities evident in the spoken content.", options=['0', '1', '2', '3', '4', '5'], key='slider3'))
+        slider_val_4 = int(st.select_slider("4. The provided translation accurately conveys the meaning of the spoken content in the video.", options=['0', '1', '2', '3', '4', '5'], key='slider4'))
+        st.write("Provide specific suggestions for improving the transcriptions and translations.")
+        feedback = st.text_area("Your Feedback", "")
+
+        # Access num1 and num2 from session state
+        num1 = st.session_state.num1
+        num2 = st.session_state.num2
+        correct_answer = num1 + num2
+        user_answer = st.text_input(f"What is the sum of {num1} and {num2}?", "")
+        st.session_state['current_video'] = youtube_video_url
+    else:
+        st.warning('No video found')
+
+    submit_button = st.form_submit_button("Submit")
+    selection = slider_val_1 > 0
+    # Adjusted condition to proceed if user_answer is provided
+    if submit_button:
         # Check if mandatory fields are filled
         if selection:
             # Create a DataFrame with the collected data
             data = {
                 'Timestamp': [timestamp],
                 'Worker': [worker_id],
-                'Campaign' : [camp_id],
-                'Language' : [option],
-                'Correct' : [correct_answer],
-                'User' : [user_answer],
-                'The provided translation inaccurately conveys the meaning of the spoken content in the video.':[slider_val_1],
-                'The translated words are easy to understand in the new language.':[slider_val_2],
-                'The translation appropriately considers cultural nuances and sensitivities evident in the spoken content.':[slider_val_3],
-                'The provided translation accurately conveys the meaning of the spoken content in the video.':[slider_val_4],
-                'Provide specific suggestions for improving the transcriptions and translations.':[feedback],
-                
+                'Campaign': [camp_id],
+                'Language': [option],
+                'Correct': [correct_answer],
+                'User': [user_answer],
+                'The provided translation inaccurately conveys the meaning of the spoken content in the video.': [slider_val_1],
+                'The translated words are easy to understand in the new language.': [slider_val_2],
+                'The translation appropriately considers cultural nuances and sensitivities evident in the spoken content.': [slider_val_3],
+                'The provided translation accurately conveys the meaning of the spoken content in the video.': [slider_val_4],
+                'Provide specific suggestions for improving the transcriptions and translations.': [feedback],
             }
-  
+
             df = pd.DataFrame(data)
 
             # Save the DataFrame to a CSV file
@@ -130,4 +135,4 @@ with st.form(key='image_form'):
             switch_page("payment")
 
         else:
-            st.warning('Please select your answer first')
+            st.warning('Please provide your answer')
